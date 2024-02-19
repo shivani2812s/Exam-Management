@@ -82,10 +82,75 @@
         }
 
     </style>
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector('form');
+
+            form.addEventListener('submit', function (event) {
+                const firstName = form.querySelector('#firstname').value;
+                const lastName = form.querySelector('#lastname').value;
+                if (!validateName(firstName) || !validateName(lastName)) {
+                    alert('Please enter valid first and last names.');
+                    event.preventDefault();
+                }
+
+                const email = form.querySelector('#email').value;
+                if (!validateEmail(email)) {
+                    alert('Please enter a valid email address.');
+                    event.preventDefault();
+                }
+
+                const phoneNumber = form.querySelector('#phno').value;
+                if (!validatePhoneNumber(phoneNumber)) {
+                    alert('Please enter a valid phone number.');
+                    event.preventDefault();
+                }
+
+                const password = form.querySelector('#password').value;
+                if (!validatePassword(password)) {
+                    alert('Password must be at least 8 characters long and contain at least one special character.');
+                    event.preventDefault();
+                }
+            });
+
+            function validateName(name) {
+                const nameRegex = /^[A-Za-z ]+$/;
+                return nameRegex.test(name);
+            }
+
+            function validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            function validatePhoneNumber(phoneNumber) {
+                const phoneRegex = /^\d{10}$/;
+                return phoneRegex.test(phoneNumber);
+            }
+
+            function validatePassword(password) {
+                const passwordRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{8,}$/;
+                return passwordRegex.test(password);
+            }
+        });
+    </script>
 </head>
 <body>
     <h2>Enter Your Details</h2>
     <form action="/signup/student" method="POST">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+            <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
         <div class="form-group">
             <label for="firstname">First Name:</label>
             <input type="text" id="firstname" name="firstname" required>
@@ -96,22 +161,14 @@
             <input type="text" id="lastname" name="lastname" required>
         </div>
 
-        <div class="form-group">
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender" required>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
-        </div>
-
+    
         <div class="form-group">
             <label for="phno">Phone Number:</label>
             <input type="text" id="phno" name="phno" required>
         </div>
 
         <div class="form-group">
-            <label for="enrollmentno">Enrollment Number:</label>
+            <label for="enrollmentno">Enrollment No:</label>
             <input type="text" id="enrollmentno" name="enrollmentno" required>
         </div>
 
@@ -120,10 +177,7 @@
             <input type="text" id="classname" name="classname" required>
         </div>
 
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
+    
 
         <div class="form-group">
             <label for="dob">Date of Birth:</label>
